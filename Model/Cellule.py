@@ -19,4 +19,16 @@ def type_cellule(cell: dict) -> bool:
         and type(cell[const.VISIBLE] == bool) and type(cell[const.CONTENU]) == int \
         and (0 <= cell[const.CONTENU] <= 8 or cell[const.CONTENU] == const.ID_MINE)
 
+def isContenuCorrect(entier:int) ->bool :
+    """ cette fonction sert à vérifier un nombre peut représenter le contenu d'une cellule, optionnel fait"""
+    res = False
+    if type(entier) == int:
+        if entier == const.ID_MINE or (entier <= 8 and entier >= 0) :
+            res = True
+    return res
+
+
+
+
+
 
