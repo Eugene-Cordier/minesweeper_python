@@ -97,11 +97,45 @@ def isCoordonneeCorrecte(grille: list, coordonnee: tuple) -> bool:
             return True
     return res
 
+
 def getCelluleGrilleDemineur(grille: list, coordonnee: tuple) -> dict:
     """permet de récupérer les informations d'une cellule"""
-    if type_grille_demineur(grille)==False or type_coordonnee(coordonnee)==False:
+    if type_grille_demineur(grille) == False or type_coordonnee(coordonnee) == False:
         raise TypeError("getCelluleGrilleDemineur : un des paramètres n’est pas du bon type.")
-    if isCoordonneeCorrecte(grille, coordonnee)==False:
+    if isCoordonneeCorrecte(grille, coordonnee) == False:
         raise IndexError("getCelluleGrilleDemineur : coordonnée non contenue dans la grille")
     return grille[coordonnee[0]][coordonnee[1]]
 
+
+def getContenuGrilleDemineur(grille: list, coordonnee: tuple) -> dict:
+    """permet d'obtenir le contenu de la cellule passée en paramètre"""
+    cell = getCelluleGrilleDemineur(grille, coordonnee)
+    return getContenuCellule(cell)
+
+
+def setContenuGrilleDemineur(grille: list, coordonnee: tuple, contenu: int) -> None:
+    """permet de remplacer le contenu d'une cellule précise"""
+    cell = getCelluleGrilleDemineur(grille, coordonnee)
+    setContenuCellule(cell, contenu)
+    return None
+
+
+def isVisibleGrilleDemineur(grille: list, coordonnee: tuple) -> bool:
+    """permet de savoir si une cellule est visible """
+    cell = getCelluleGrilleDemineur(grille, coordonnee)
+    return cell[const.VISIBLE]
+
+
+def setVisibleGrilleDemineur(grille: list, coordonnee: tuple, visible: bool) -> None:
+    """ permet de changer la visibilitée d'une cellule"""
+    cell = getCelluleGrilleDemineur(grille, coordonnee)
+    setVisibleCellule(cell, visible)
+    return None
+
+def contientMineGrilleDemineur(grille: list, coordonnee: tuple) ->bool:
+    """ permet de savoir si une case contient une mine"""
+    res=False
+    contenu=getContenuGrilleDemineur(grille, coordonnee)
+    if contenu==const.ID_MINE:
+        res=True
+    return res
