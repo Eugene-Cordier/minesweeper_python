@@ -27,6 +27,17 @@ def isContenuCorrect(entier:int) ->bool :
             res = True
     return res
 
+def construireCellule (contenu: int=0, visible: bool=False) -> dict :
+    """la fonction sert à initialiser un dictionnaire representant le contenu de la cellule et sa visibilité"""
+    if type(contenu) != int or isContenuCorrect(contenu) == False:
+        raise ValueError(" construireCellule : le contenu ",contenu, " n’est pas correct ")
+    if type(visible) != bool :
+        raise TypeError(" construireCellule : le second paramètre", type(visible)," n’est pas un booléen ")
+    dict={const.CONTENU: contenu, const.VISIBLE: visible}
+    return dict
+
+
+
 
 
 
