@@ -22,9 +22,9 @@ def construireCoordonnee(numL: int, numC: int) -> tuple :
     ''' la fonction sert à créer une coordonnée sous la forme d'un tuple(L, C) en recevant la ligne et la colonne'''
     if type(numL) != int or type(numC) != int:
         raise TypeError("construireCoordonnee : Le numéro de ligne type_du_premier_paramètre ou le numéro de colonne type_du_second_paramètre ne sont pas des entiers")
-    tuple=(numL, numC)
     if numL<0 or numC<0:
         raise ValueError("construireCoordonnee : Le numéro de ligne", numL," ou de colonne ", numC," ne sont pas positifs")
+    tuple = (numL, numC)
     return tuple
 
 def getLigneCoordonnee (coordonnee: tuple) -> int:
