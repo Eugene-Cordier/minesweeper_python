@@ -140,11 +140,11 @@ def contientMineGrilleDemineur(grille: list, coordonnee: tuple) ->bool:
         res=True
     return res
 
-def getCoordonneeVoisinGrilleDemineur(grille: list, coordonnee: tuple) -> list:
+def getCoordonneeVoisinsGrilleDemineur(grille: list, coordonnee: tuple) -> list:
     """ permet d'obtenir la liste des coordonnées des cellules voisines"""
     if type_coordonnee(coordonnee)==False or type_grille_demineur(grille)== False:
         raise TypeError("getCoordonneeVoisinsGrilleDemineur : un des paramètres n’est pas du bon type.")
-    if "coordonnee pas dans grille"==False:
+    if isCoordonneeCorrecte(grille, coordonnee)==False:
         raise IndexError("getCoordonneeVoisinsGrilleDemineur : la coordonnée n’est pas dans la grille.")
     lst=[]
     for i in range(-1,2,1):
@@ -154,23 +154,21 @@ def getCoordonneeVoisinGrilleDemineur(grille: list, coordonnee: tuple) -> list:
                 lst.append(coordonnee1)
     return lst
 
-def placerMineGrilleDemineur(grille: list, nb: int, coordonnee: tuple) -> None:
+def placerMinesGrilleDemineur(grille: list, nb: int, coordonnee: tuple) -> None:
     """ permet de placer les mine mais pas dans la 1ere case choisit par l'utilisateur"""
-    if  nb<0 or nb> (len(grille)*len(grille[0])) :
+    if  nb<0 or nb> (len(grille)*len(grille[0])-1) :
         raise ValueError("placerMinesGrilleDemineur : Nombre de bombes à placer incorrect")
-    i=0
-    cell=getCelluleGrilleDemineur(grille, coordonnee)
-    contenu=getContenuCellule(cell)
-    while i<=nb:
-        x=randint(0,len(grille))
-        y=randint(0,len(grille[0]))
+    if isCoordonneeCorrecte(grille, coordonnee)==False:
+        raise IndexError("placerMinesGrilleDemineur : la coordonnée n’est pas dans la grille.")
+    while nb>0:
+        x=randint(0,len(grille)-1)
+        y=randint(0,len(grille[0])-1)
         a=construireCoordonnee( x, y)
-        if not isCoordonneeCorrecte(grille, a) :
-            raise IndexError("placerMinesGrilleDemineur : la coordonnée n’est pas dans la grille.")
-        if not a==coordonnee or contenu != const.ID_MINE :
-            contenu=const.ID_MINE
-            i+=1
+        if a!=coordonnee and getContenuGrilleDemineur(grille, a) != const.ID_MINE :
+            setContenuGrilleDemineur(grille, a, const.ID_MINE)
+            nb-=1
     compterMinesVoisinesGrilleDemineur(grille)
+    print("nb:, nb")
     return None
 
 def compterMinesVoisinesGrilleDemineur(grille: list) ->None:
@@ -178,15 +176,32 @@ def compterMinesVoisinesGrilleDemineur(grille: list) ->None:
     for l in range(len(grille)):
         for c in range(len(grille[0])):
             coordonnee=(l, c)
+
             contenu = getContenuGrilleDemineur(grille, coordonnee)
             if not contenu==const.ID_MINE:
-                voisins=getCoordonneeVoisinGrilleDemineur(grille, coordonnee)
-                print(coordonnee, voisins)
+                voisins=getCoordonneeVoisinsGrilleDemineur(grille, coordonnee)
                 cell = getCelluleGrilleDemineur(grille, coordonnee)
+                bombe=0
                 for a in voisins:
                     if getContenuGrilleDemineur(grille, a)==const.ID_MINE:
-                        contenu = getContenuGrilleDemineur(grille, coordonnee)
-                        setContenuCellule(cell, contenu+1)
+                        bombe+=1
+                setContenuGrilleDemineur(grille,coordonnee,bombe)
     return None
 
+def getNbMinesGrilleDemineur(grille: list) ->int:
+    """ permet de compter le nombre de mine dans la grille"""
+    if type_grille_demineur(grille)==False:
+        raise ValueError("getNbMinesGrilleDemineur : le paramètre n’est pas une grille.")
+    nbMine=0
+
+    for l in range(len(grille)):
+        for c in range(len(grille[0])):
+            coordonnee=(l,c)
+            cell=getCelluleGrilleDemineur(grille, coordonnee)
+            print(coordonnee, cell)
+            if cell[const.CONTENU]==const.ID_MINE:
+                nbMine=nbMine+1
+                print(nbMine)
+
+    return nbMine
 

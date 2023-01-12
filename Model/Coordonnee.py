@@ -32,7 +32,7 @@ def getLigneCoordonnee (coordonnee: tuple) -> int:
     if type(coordonnee) != tuple:
         raise TypeError(" getLigneCoordonnee : Le paramètre n’est pas une coordonnée ")
     return coordonnee[0]
-coo=(1,2)
+
 
 def getColonneCoordonnee(coordonnee: tuple) -> int:
     ''' la fonction sert a récupérer la colonne dans une coordonnee'''

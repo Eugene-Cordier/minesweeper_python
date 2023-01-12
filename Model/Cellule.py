@@ -23,7 +23,7 @@ def isContenuCorrect(entier:int) ->bool :
     """ cette fonction sert à vérifier un nombre peut représenter le contenu d'une cellule"""
     res = False
     if type(entier) == int:
-        if entier == const.ID_MINE or (entier <= 8 and entier >= 0) :
+        if entier == const.ID_MINE or 0<=entier<=8 :
             res = True
     return res
 
