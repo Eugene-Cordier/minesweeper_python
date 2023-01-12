@@ -172,3 +172,19 @@ def placerMineGrilleDemineur(grille: list, nb: int, coordonnee: tuple) -> None:
             i+=1
     return None
 
+def compterMinesVoisinesGrilleDemineur(grille: list) ->None:
+    """ permet de compter les mines voisines"""
+    for l in range(len(grille)):
+        for c in range(len(grille[0])):
+            coordonnee=(l, c)
+            contenu = getContenuGrilleDemineur(grille, coordonnee)
+            if not contenu==const.ID_MINE:
+                voisins=getCoordonneeVoisinGrilleDemineur(grille, coordonnee)
+                print(coordonnee, voisins)
+                cell = getCelluleGrilleDemineur(grille, coordonnee)
+                for a in voisins:
+                    if getContenuGrilleDemineur(grille, a)==const.ID_MINE:
+                        contenu = getContenuGrilleDemineur(grille, coordonnee)
+                        setContenuCellule(cell, contenu+1)
+    return None
+
