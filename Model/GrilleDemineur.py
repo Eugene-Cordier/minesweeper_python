@@ -139,3 +139,18 @@ def contientMineGrilleDemineur(grille: list, coordonnee: tuple) ->bool:
     if contenu==const.ID_MINE:
         res=True
     return res
+
+def getCoordonneeVoisinGrilleDemineur(grille: list, coordonnee: tuple) -> list:
+    """ permet d'obtenir la liste des coordonnées des cellules voisines"""
+    if type_coordonnee(coordonnee)==False or type_grille_demineur(grille)== False:
+        raise TypeError("getCoordonneeVoisinsGrilleDemineur : un des paramètres n’est pas du bon type.")
+    if "coordonnee pas dans grille"==False:
+        raise IndexError("getCoordonneeVoisinsGrilleDemineur : la coordonnée n’est pas dans la grille.")
+    lst=[]
+    for i in range(-1,2,1):
+        for j in range(-1,2,1):
+            coordonnee1=(coordonnee[0]+i,coordonnee[1]+j)
+            if isCoordonneeCorrecte(grille,coordonnee1) and coordonnee1!= coordonnee:
+                lst.append(coordonnee1)
+    return lst
+
