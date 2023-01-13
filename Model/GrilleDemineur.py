@@ -214,7 +214,6 @@ def getMinesRestantesGrilleDemineur(grille: list) -> int:
             coordonnee=(i, j)
             if getAnnotationGrilleDemineur(grille, coordonnee)==const.FLAG:
                 nbDecouvert+=1
-    print("nb est:", type(nb),"nbDecouvert:", type(nbDecouvert))
     return nb -nbDecouvert
 
 def gagneGrilleDemineur(grille: list) ->bool:
@@ -228,6 +227,17 @@ def gagneGrilleDemineur(grille: list) ->bool:
                 res=False
             elif getAnnotationGrilleDemineur(grille, (i,j))!=const.FLAG and contientMineGrilleDemineur(grille, (i,j)):
                 res=False
+    return res
+
+
+def perduGrilleDemineur(grille: list) -> bool:
+    """ permet de vérifier si la partie est perdue"""
+    res = False
+    for i in range(len(grille)):
+        for j in range(len(grille[0])):
+            if contientMineGrilleDemineur(grille, (i,j)) and isVisibleGrilleDemineur(grille, (i, j)):
+                res = True
+
     return res
 
 
