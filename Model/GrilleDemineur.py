@@ -201,9 +201,20 @@ def getNbMinesGrilleDemineur(grille: list) ->int:
                 nbMine=nbMine+1
     return nbMine
 
-def getAnnotationGrilleDemineur(grille: list, coordonneee: tuple) ->str:
+def getAnnotationGrilleDemineur(grille: list, coordonnee: tuple) ->str:
     """ return l'annotation d'une cellule """
-    cell="getDictionnaireCellule"
-    return cell[const.ANNOTATION]
+    return getAnnotationCellule(getCelluleGrilleDemineur(grille, coordonnee))
+
+def getMinesRestantesGrilleDemineur(grille: list) -> int:
+    """ permet de compter le nombre de mines restantes non notées par un flag"""
+    nb=getNbMinesGrilleDemineur(grille)
+    nbDecouvert=0
+    for i in range(len(grille)):
+        for j in range(len(grille[0])):
+            coordonnee=(i, j)
+            if getAnnotationGrilleDemineur(grille, coordonnee)==const.FLAG:
+                nbDecouvert+=1
+    print("nb est:", type(nb),"nbDecouvert:", type(nbDecouvert))
+    return nb - nbDecouvert
 
 
