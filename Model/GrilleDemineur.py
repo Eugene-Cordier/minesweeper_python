@@ -269,7 +269,7 @@ def decouvrirGrilleDemineur(grille: list, coordonnee: tuple) -> set:
 
 
 def simplifierGrilleDemineur(grille: list, coordonnee: tuple) -> set:
-    """ """
+    """ permet decouvrir les cases autour d'une case si tt les bombes autours de la case sont découvertes"""
     res=set()
     nbFlag=0
     if isVisibleGrilleDemineur(grille, coordonnee)==True:
@@ -289,3 +289,40 @@ def simplifierGrilleDemineur(grille: list, coordonnee: tuple) -> set:
                         val.clear()
     return res
 
+def ajouterFlagsGrilleDemineur(grille: list, coordonnee: tuple) ->set:
+    """ permet de placer les flags autours d'une case si les cases voisines non visible=nombreBombes Voisines"""
+    res=set()
+    voisinsNDecouvert=0
+    if isVisibleGrilleDemineur(grille, coordonnee)==True:
+        voisins=getCoordonneeVoisinsGrilleDemineur(grille, coordonnee)
+        for i in voisins:
+            if isVisibleGrilleDemineur(grille, i)==False:
+                voisinsNDecouvert+=1
+        if getContenuGrilleDemineur(grille, coordonnee)==voisinsNDecouvert:
+            for j in voisins:
+                if not isVisibleGrilleDemineur(grille, j) and getAnnotationGrilleDemineur(grille, j)!=const.FLAG:
+                    cell=getCelluleGrilleDemineur(grille, j)
+                    cell[const.ANNOTATION]=const.FLAG
+                    res.add(j)
+    return res
+
+def simplifierToutGrilleDemineur(grille: list) ->tuple:
+    """ """
+    coordonneeVisible=set()
+    coordonneFlag=set()
+    modif=True
+    while modif:
+        modif=False
+        for l in range(len(grille)):
+            for c in range(len(grille[0])):
+                val=simplifierGrilleDemineur(grille, (l,c))
+                for a in val:
+                    coordonneeVisible.add(a)
+                val.clear()
+                val = ajouterFlagsGrilleDemineur(grille, (l, c))
+                for a in val:
+                    modif=True
+                    coordonneFlag.add(a)
+                val.clear()
+
+    return (coordonneeVisible, coordonneFlag)
