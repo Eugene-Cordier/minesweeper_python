@@ -193,15 +193,11 @@ def getNbMinesGrilleDemineur(grille: list) ->int:
     if type_grille_demineur(grille)==False:
         raise ValueError("getNbMinesGrilleDemineur : le paramètre n’est pas une grille.")
     nbMine=0
-
     for l in range(len(grille)):
         for c in range(len(grille[0])):
             coordonnee=(l,c)
             cell=getCelluleGrilleDemineur(grille, coordonnee)
-            print(coordonnee, cell)
             if cell[const.CONTENU]==const.ID_MINE:
                 nbMine=nbMine+1
-                print(nbMine)
-
     return nbMine
 

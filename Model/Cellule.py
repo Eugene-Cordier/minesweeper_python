@@ -80,6 +80,16 @@ def contientMineCellule(cell: dict) ->bool:
 def isAnnotationCorrecte(annotation: str) -> bool:
     return annotation == const.DOUTE or annotation == const.FLAG or annotation==None
 
+def getAnnotationCellule(cell: dict) -> str:
+    """ permet de returner l'annotation de la cellule"""
+    if type_cellule(cell)==False:
+        raise TypeError(f"getAnnotationCellule : le paramètre {type(cell)} n’est pas une cellule")
+    if const.ANNOTATION not in cell:
+        return None
+    return cell[const.ANNOTATION]
+
+
+
 
 
 
