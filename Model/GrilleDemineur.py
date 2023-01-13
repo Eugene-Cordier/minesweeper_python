@@ -201,3 +201,9 @@ def getNbMinesGrilleDemineur(grille: list) ->int:
                 nbMine=nbMine+1
     return nbMine
 
+def getAnnotationGrilleDemineur(grille: list, coordonneee: tuple) ->str:
+    """ return l'annotation d'une cellule """
+    cell="getDictionnaireCellule"
+    return cell[const.ANNOTATION]
+
+

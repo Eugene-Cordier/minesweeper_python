@@ -88,6 +88,18 @@ def getAnnotationCellule(cell: dict) -> str:
         return None
     return cell[const.ANNOTATION]
 
+def changeAnnotationCellule(cell: dict) -> None:
+    """ permet de changer l'annotation"""
+    if type_cellule(cell)==False:
+        raise TypeError("changeAnnotationCellule : le paramètre n’est pas une cellule")
+    if cell[const.ANNOTATION]== None:
+        cell[const.ANNOTATION]=const.FLAG
+    elif cell[const.ANNOTATION]==const.FLAG:
+        cell[const.ANNOTATION]=const.DOUTE
+    elif cell[const.ANNOTATION]==const.DOUTE:
+        cell[const.ANNOTATION]=None
+    return None
+
 
 
 
