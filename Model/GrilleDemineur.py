@@ -215,6 +215,6 @@ def getMinesRestantesGrilleDemineur(grille: list) -> int:
             if getAnnotationGrilleDemineur(grille, coordonnee)==const.FLAG:
                 nbDecouvert+=1
     print("nb est:", type(nb),"nbDecouvert:", type(nbDecouvert))
-    return nb - nbDecouvert
+    return nb -nbDecouvert
 
 
