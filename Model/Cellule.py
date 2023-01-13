@@ -100,6 +100,13 @@ def changeAnnotationCellule(cell: dict) -> None:
         cell[const.ANNOTATION]=None
     return None
 
+def reinitialiserCellule(cell: dict) ->None:
+    """ permet de réinitialiser une cellule"""
+    cell[const.CONTENU]=0
+    cell[const.VISIBLE]=False
+    cell[const.ANNOTATION]=None
+    return None
+
 
 
 

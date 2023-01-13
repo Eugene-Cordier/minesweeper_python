@@ -240,5 +240,13 @@ def perduGrilleDemineur(grille: list) -> bool:
 
     return res
 
+def reinitialiserGrilleDemineur(grille: list) ->None:
+    """ permet de réinitialiser la grille"""
+    for i in range(len(grille)):
+        for j in range(len(grille[0])):
+            cell=getCelluleGrilleDemineur(grille,(i,j))
+            reinitialiserCellule(cell)
+    return None
+
 
 
