@@ -248,5 +248,44 @@ def reinitialiserGrilleDemineur(grille: list) ->None:
             reinitialiserCellule(cell)
     return None
 
+def decouvrirGrilleDemineur(grille: list, coordonnee: tuple) -> set:
+    """ permet de montrer plusieurs cases si y a rien a côté"""
+    res=set()
+    res.add(coordonnee)
+    setVisibleGrilleDemineur(grille, coordonnee, True)
+    if getContenuGrilleDemineur(grille, coordonnee)==0:
+        voisins=getCoordonneeVoisinsGrilleDemineur(grille, coordonnee)
+        for i in voisins:
+            res.add(i)
+            if not isVisibleGrilleDemineur(grille, i):
+                setVisibleGrilleDemineur(grille, i, True)
+                if getContenuGrilleDemineur(grille, coordonnee)==0:
+                    val=decouvrirGrilleDemineur(grille, i)
+                    for j in val:
+                        res.add(j)
+                    val.clear()
+    return res
 
+
+
+def simplifierGrilleDemineur(grille: list, coordonnee: tuple) -> set:
+    """ """
+    res=set()
+    nbFlag=0
+    if isVisibleGrilleDemineur(grille, coordonnee)==True:
+        voisins=getCoordonneeVoisinsGrilleDemineur(grille, coordonnee)
+        for i in voisins:
+            if getAnnotationGrilleDemineur(grille, i)==const.FLAG:
+                nbFlag+=1
+        if nbFlag==getContenuGrilleDemineur(grille, coordonnee):
+            for j in voisins:
+                if not getAnnotationGrilleDemineur(grille, j)==const.FLAG :
+                    if not isVisibleGrilleDemineur(grille, j):
+                        setVisibleGrilleDemineur(grille, j, True)
+                        res.add(j)
+                        val=simplifierGrilleDemineur(grille, j)
+                        for a in val:
+                            res.add(a)
+                        val.clear()
+    return res
 
